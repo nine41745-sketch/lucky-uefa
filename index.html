@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<!-- saved from url=(0042)https://dulcet-strudel-39fe79.netlify.app/ -->
 <html lang="th"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>ลัคกี้&amp;ยูฟ่า Dashboard</title>
-<!-- App Version: 2.7.4 -->
-<script>console.log("App Version: 2.7.4");</script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- App Version: 2.7.5 -->
+<script>console.log("App Version: 2.7.5");</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js" referrerpolicy="no-referrer"></script>
 <script>
 // ── SECURITY: HTML escaping ─────────────────────────────────────
 // BUG-001 fix: ใช้ escape ตัวเดียวที่ปลอดภัยทั้งใน text-content context และ
@@ -499,27 +500,68 @@ function clearQuickNote(){
 }
 </script>
 <script>
-// ── AUTO-LOGOUT (15 min inactivity) ────────────────
-const IDLE_LIMIT = 29 * 60 * 1000; // 29 min ไม่มีการใช้งาน → ขึ้นเตือน 60 วิ ก่อน logout (รวม = 30 นาที ตามที่ขอ)
-const WARN_DURATION = 60; // 60 sec countdown then logout
+// ── AUTO-LOGOUT (30 min inactivity; survives reload/background) ──
+const IDLE_LIMIT = 29 * 60 * 1000;
+const SESSION_IDLE_LIMIT = 30 * 60 * 1000;
+const WARN_DURATION = 60;
+const ACTIVITY_STORAGE_KEY = 'lucky_uefa_last_activity';
 let _idleTimer = null;
 let _warnTimer = null;
 let _warnCount = WARN_DURATION;
+let _lastActivityPersistMs = 0;
+
+function _mainAppVisible(){
+  const app=document.getElementById('mainApp');
+  return !!app && app.style.display!=='none';
+}
+
+function _markSessionActivity(force=false){
+  if(!_mainAppVisible())return;
+  const now=Date.now();
+  if(force || (now-_lastActivityPersistMs)>=5000){
+    localStorage.setItem(ACTIVITY_STORAGE_KEY,String(now));
+    _lastActivityPersistMs=now;
+  }
+}
+
+function _clearSessionActivity(){
+  localStorage.removeItem(ACTIVITY_STORAGE_KEY);
+  _lastActivityPersistMs=0;
+}
+
+function _sessionIdleExpired(){
+  const raw=localStorage.getItem(ACTIVITY_STORAGE_KEY);
+  if(!raw)return false;
+  const last=Number(raw);
+  if(!Number.isFinite(last)||last<=0)return false;
+  return (Date.now()-last)>=SESSION_IDLE_LIMIT;
+}
+
+function _enforcePersistentIdle(){
+  if(_mainAppVisible()&&_sessionIdleExpired()){
+    logout();
+    return true;
+  }
+  return false;
+}
 
 function resetIdleTimer() {
-  // hide warning if showing
   const w = document.getElementById('autoLogoutWarn');
   if (w) w.style.display = 'none';
   clearInterval(_warnTimer);
   _warnCount = WARN_DURATION;
-  // reset idle
   clearTimeout(_idleTimer);
+  _markSessionActivity(false);
   _idleTimer = setTimeout(showLogoutWarning, IDLE_LIMIT);
 }
 
 function showLogoutWarning() {
   const w = document.getElementById('autoLogoutWarn');
-  if (!w || document.getElementById('mainApp').style.display === 'none') return;
+  if (!w || !_mainAppVisible()) return;
+  if(_sessionIdleExpired()){
+    logout();
+    return;
+  }
   _warnCount = WARN_DURATION;
   w.style.display = 'block';
   document.getElementById('awCount').textContent = _warnCount;
@@ -541,9 +583,19 @@ function startIdleWatch() {
   resetIdleTimer();
 }
 
-// start watching — will only trigger logout when mainApp is visible
-document.addEventListener('DOMContentLoaded', () => {
-  startIdleWatch();
+document.addEventListener('DOMContentLoaded', startIdleWatch);
+
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='hidden'){
+    _markSessionActivity(true);
+  }else if(!_enforcePersistentIdle() && _mainAppVisible()){
+    _markSessionActivity(true);
+    resetIdleTimer();
+  }
+});
+
+window.addEventListener('pageshow',()=>{
+  _enforcePersistentIdle();
 });
 </script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -1123,7 +1175,7 @@ body.light-mode .qn-foot{border-top-color:#e2e8f0;}
 </div>
 
 <!-- MAIN APP -->
-<div id="mainApp" style="display: block;">
+<div id="mainApp" style="display: none;">
   <div class="header">
     <div>
       <div class="header-title">🐾 ลัคกี้ &amp; ยูฟ่า <span>Dashboard</span></div>
@@ -1132,7 +1184,7 @@ body.light-mode .qn-foot{border-top-color:#e2e8f0;}
         &nbsp;·&nbsp;
         <span class="last-upd" id="lastUpdated">-</span>
       </div>
-      <div class="version-badge" onclick="openChangelog()" title="ดูประวัติเวอร์ชัน" style="display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:3px 11px;border-radius:999px;background:linear-gradient(135deg,#78350f,#92400e);border:1px solid #f59e0b;font-size:11px;font-weight:600;color:#fde68a;cursor:pointer;box-shadow:0 0 12px rgba(245,158,11,.3);transition:box-shadow .2s,transform .2s;" onmouseover="this.style.boxShadow=&#39;0 0 20px rgba(245,158,11,.55)&#39;;this.style.transform=&#39;translateY(-1px)&#39;" onmouseout="this.style.boxShadow=&#39;0 0 12px rgba(245,158,11,.3)&#39;;this.style.transform=&#39;none&#39;">🏷️ v2.7.4</div>
+      <div class="version-badge" onclick="openChangelog()" title="ดูประวัติเวอร์ชัน" style="display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:3px 11px;border-radius:999px;background:linear-gradient(135deg,#78350f,#92400e);border:1px solid #f59e0b;font-size:11px;font-weight:600;color:#fde68a;cursor:pointer;box-shadow:0 0 12px rgba(245,158,11,.3);transition:box-shadow .2s,transform .2s;" onmouseover="this.style.boxShadow=&#39;0 0 20px rgba(245,158,11,.55)&#39;;this.style.transform=&#39;translateY(-1px)&#39;" onmouseout="this.style.boxShadow=&#39;0 0 12px rgba(245,158,11,.3)&#39;;this.style.transform=&#39;none&#39;">🏷️ v2.7.5</div>
     </div>
     <div class="header-right">
       <select class="month-select" id="monthSel" onchange="switchMonth()"><option value="2569-06">มิถุนายน 2569</option><option value="2569-07">กรกฎาคม 2569</option><option value="2569-08">สิงหาคม 2569</option></select>
@@ -1781,6 +1833,9 @@ function load(){
 }
 
 const LOGIN_EMAIL='nine41745@gmail.com';
+// v2.7.5 defense-in-depth: Database Rules ยังเป็น security boundary หลัก
+// แต่ client จะไม่ boot แอปให้ Firebase UID อื่น
+const AUTHORIZED_UID='Yz980sZpOfgsxTipCSJBwxgfrmA3';
 const FIREBASE_CONFIG={apiKey:"AIzaSyDDMCDV4wQ2QdzK8mKt6aZoGfheRQx5wjg",authDomain:"lucky-uefa.firebaseapp.com",databaseURL:"https://lucky-uefa-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"lucky-uefa",storageBucket:"lucky-uefa.firebasestorage.app",messagingSenderId:"100470145520",appId:"1:100470145520:web:c7d542230145eae58f5d35",measurementId:"G-BQ25934S2Z"};
 localStorage.setItem('fb_config',JSON.stringify(FIREBASE_CONFIG));
 if(typeof firebase!=='undefined'&&!window._fbApp){
@@ -1818,9 +1873,37 @@ if(typeof firebase!=='undefined'&&window._fbAuth){
   document.getElementById('pwdInput').value='';
   window._fbAuth.onAuthStateChanged(user=>{
     if(user){
+      const errEl=document.getElementById('loginErr');
+
+      if(user.uid!==AUTHORIZED_UID){
+        _clearSessionActivity();
+        document.getElementById('mainApp').style.display='none';
+        document.getElementById('loginScreen').style.display='flex';
+        if(errEl){
+          errEl.textContent='⛔ บัญชีนี้ไม่ได้รับอนุญาต';
+          errEl.style.display='block';
+        }
+        window._fbAuth.signOut();
+        return;
+      }
+
+      if(_sessionIdleExpired()){
+        _clearSessionActivity();
+        document.getElementById('mainApp').style.display='none';
+        document.getElementById('loginScreen').style.display='flex';
+        if(errEl){
+          errEl.textContent='⏰ หมดเวลาใช้งาน กรุณาเข้าสู่ระบบใหม่';
+          errEl.style.display='block';
+        }
+        window._fbAuth.signOut();
+        return;
+      }
+
       document.getElementById('loginScreen').style.display='none';
       document.getElementById('mainApp').style.display='block';
       const qf0=document.getElementById('qnFab');if(qf0)qf0.style.display='block';
+      _markSessionActivity(true);
+      resetIdleTimer();
       bootApp();
     }else{
       document.getElementById('loginScreen').style.display='flex';
@@ -1878,6 +1961,10 @@ function doLogin(){
 }
 function logout(){
   _booted=false; // reset เพื่อให้ bootApp ทำงานได้อีกครั้งหลัง login ใหม่
+  _clearSessionActivity();
+  clearTimeout(_idleTimer);
+  clearInterval(_warnTimer);
+  const _aw=document.getElementById('autoLogoutWarn');if(_aw)_aw.style.display='none';
   if(window._fbRef){window._fbRef.off();window._fbRef=null;}
   if(window._fbSettingsRef){window._fbSettingsRef.off();window._fbSettingsRef=null;}
   if(window._fbNotesRef){window._fbNotesRef.off();window._fbNotesRef=null;}
@@ -4477,6 +4564,12 @@ function saveItemAsTemplate(e){
 // หมายเหตุ: เวอร์ชันก่อนหน้า (จนถึง 2.6.2) ไม่ได้บันทึก "เวลา" ที่แก้จริงไว้ตอนนั้น มีแค่วันที่
 // ตั้งแต่ 2.6.3 เป็นต้นไป ให้ใส่ time (HH:MM ตามเวลาไทย) จริงทุกครั้งที่บั๊มเวอร์ชัน
 const CHANGELOG=[
+  {v:'2.7.5',date:'2569-10-03',time:'02:28',notes:[
+    '🔐 Security Hardening: เพิ่ม client-side UID allowlist ก่อน boot แอป โดย Firebase Realtime Database Rules ที่ล็อก UID ยังคงเป็น security boundary หลัก และซ่อน mainApp ตั้งแต่เริ่มโหลดจน Auth ผ่าน',
+    '⏰ ทำ auto-logout 30 นาทีให้ตรวจต่อเนื่องข้าม reload/background ด้วย last activity แบบ namespaced โดยไม่ลบข้อมูลรายรับรายจ่ายหรือ backup ใน localStorage',
+    '🛡️ เพิ่ม Referrer Policy และ CSP แบบ low-risk เพื่อปิด object/base/form ที่แอปไม่ใช้ โดยยังไม่ล็อก Firebase network/script แบบเข้มเพื่อเลี่ยง regression',
+    '📌 Pin Chart.js เป็น 4.5.1 แทน CDN แบบไม่ระบุเวอร์ชัน เพื่อลด supply-chain drift'
+  ]},
   {v:'2.7.4',date:'2569-09-01',time:'03:18',notes:['📁 จัดโครงสร้าง Lucky-Uefa ให้เป็นโปรเจกต์เดี่ยว: ย้ายหน้าแอปจาก money/index.html มาเป็น index.html ที่ root เพื่อให้เปิดจากหน้า GitHub Pages หลักโดยตรง, นำโฟลเดอร์ todolist และ worldcup2026 ซึ่งเป็นคนละโปรเจกต์ออกจาก repo นี้, และนำไฟล์ backup ของ money ออกจาก Production โดยเก็บสำรองไว้นอก repo — ไม่มีการเปลี่ยนสูตรคำนวณ, Firebase schema หรือข้อมูลผู้ใช้']},
   {v:'2.7.3',date:'2569-08-22',time:'23:35',notes:['🔓 เอาปุ่ม "🔒 ล็อคหน้าจอ" ออกทั้งบนคอม (ปุ่มด้านบน) และมือถือ (เมนู ⋯) — ฟังก์ชันนี้แค่ซ่อนหน้าจอในแท็บนั้นด้วย sessionStorage โดยไม่ได้ signOut ออกจาก Firebase จริง ทำให้เปิด URL แท็บใหม่แล้วเข้าเว็บได้เลยโดยไม่ต้องใส่รหัสผ่านซ้ำ อาจทำให้เข้าใจผิดว่าเป็นการล็อคเพื่อความปลอดภัย ปุ่ม "ออก" (logout, signOut จริง) และ auto-logout อัตโนมัติ 30 นาทีที่ไม่มีการใช้งาน ยังทำงานเหมือนเดิมทุกประการ',
     '📌 ยอดรายจ่าย "นาย" และ "เจน" รายวัน (คอลัมน์ในตารางรายวัน) คลิกเพื่อเลือก/ยกเลิกเลือกรวมยอดได้แล้ว เหมือนยอด "คงเหลือ" และยอดรายการแต่ละอย่างที่เลือกได้อยู่ก่อนแล้ว เลือกนาย+เจนวันเดียวกัน หรือหลายวันผสมกันได้ รวมกับยอดที่เลือกไว้อื่นๆ ได้ ใช้แถบเลือกยอดเดิม (ยอดรวม/÷2/คัดลอกไลน์/ล้าง) เปลี่ยนเดือนแล้ว selection จะถูกล้างอัตโนมัติเหมือนเดิม',
