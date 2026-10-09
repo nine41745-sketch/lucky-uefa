@@ -8,8 +8,8 @@
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>ลัคกี้&amp;ยูฟ่า Dashboard</title>
-<!-- App Version: 2.7.5 -->
-<script>console.log("App Version: 2.7.5");</script>
+<!-- App Version: 2.7.6 -->
+<script>console.log("App Version: 2.7.6");</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js" referrerpolicy="no-referrer"></script>
 <script>
 // ── SECURITY: HTML escaping ─────────────────────────────────────
@@ -1087,6 +1087,33 @@ body.light-mode .qn-foot{border-top-color:#e2e8f0;}
   .qn-ta{font-size:16px!important;}
 }
 
+/* v2.7.6: separate personal-spend view */
+.personal-summary{margin:15px 0 18px;}
+.personal-summary-title{font-size:14px;font-weight:700;color:#e2e8f0;margin:0 0 10px;}
+.personal-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;}
+.personal-summary-card{min-width:0;padding:13px 14px;border:1px solid #334155;border-radius:12px;background:#1e293b;}
+.personal-summary-label{font-size:12px;color:#94a3b8;margin-bottom:5px;}
+.personal-summary-amount{font-size:19px;font-weight:700;color:#e2e8f0;overflow-wrap:anywhere;}
+.personal-summary-card.nai .personal-summary-amount{color:#a5b4fc;}
+.personal-summary-card.jen .personal-summary-amount{color:#f9a8d4;}
+.personal-summary-card.all .personal-summary-amount{color:#34d399;}
+.personal-summary-caption{font-size:11px;color:#94a3b8;margin-top:8px;line-height:1.5;}
+.personal-row-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:12px 0 8px;}
+.personal-entry{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 10px;border:1px solid #334155;border-radius:8px;margin:6px 0;font-size:12px;}
+.personal-entry-title{flex:1;min-width:0;overflow-wrap:anywhere;color:#e2e8f0;}
+.personal-entry-money{font-weight:700;white-space:nowrap;}
+.personal-entry-money.nai{color:#a5b4fc;}.personal-entry-money.jen{color:#f9a8d4;}
+.personal-row-actions{display:flex;gap:5px;flex-shrink:0;}
+body.light-mode .personal-summary-title,body.light-mode .personal-summary-amount,body.light-mode .personal-entry-title{color:#0f172a;}
+body.light-mode .personal-summary-card{background:#fff;border-color:#d1d5db;}
+body.light-mode .personal-summary-label,body.light-mode .personal-summary-caption{color:#475569;}
+body.light-mode .personal-entry{border-color:#cbd5e1;}
+body.light-mode .personal-summary-card.nai .personal-summary-amount,body.light-mode .personal-entry-money.nai{color:#4338ca;}
+body.light-mode .personal-summary-card.jen .personal-summary-amount,body.light-mode .personal-entry-money.jen{color:#be185d;}
+body.light-mode .personal-summary-card.all .personal-summary-amount{color:#047857;}
+@media(max-width:900px){.personal-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:450px){.personal-summary-amount{font-size:17px}.personal-entry{flex-wrap:wrap}.personal-row-actions{margin-left:auto}}
+#tab-dashboard .table-card table{min-width:990px;}
 </style>
 </head>
 <body>
@@ -1184,7 +1211,7 @@ body.light-mode .qn-foot{border-top-color:#e2e8f0;}
         &nbsp;·&nbsp;
         <span class="last-upd" id="lastUpdated">-</span>
       </div>
-      <div class="version-badge" onclick="openChangelog()" title="ดูประวัติเวอร์ชัน" style="display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:3px 11px;border-radius:999px;background:linear-gradient(135deg,#78350f,#92400e);border:1px solid #f59e0b;font-size:11px;font-weight:600;color:#fde68a;cursor:pointer;box-shadow:0 0 12px rgba(245,158,11,.3);transition:box-shadow .2s,transform .2s;" onmouseover="this.style.boxShadow=&#39;0 0 20px rgba(245,158,11,.55)&#39;;this.style.transform=&#39;translateY(-1px)&#39;" onmouseout="this.style.boxShadow=&#39;0 0 12px rgba(245,158,11,.3)&#39;;this.style.transform=&#39;none&#39;">🏷️ v2.7.5</div>
+      <div class="version-badge" onclick="openChangelog()" title="ดูประวัติเวอร์ชัน" style="display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:3px 11px;border-radius:999px;background:linear-gradient(135deg,#78350f,#92400e);border:1px solid #f59e0b;font-size:11px;font-weight:600;color:#fde68a;cursor:pointer;box-shadow:0 0 12px rgba(245,158,11,.3);transition:box-shadow .2s,transform .2s;" onmouseover="this.style.boxShadow=&#39;0 0 20px rgba(245,158,11,.55)&#39;;this.style.transform=&#39;translateY(-1px)&#39;" onmouseout="this.style.boxShadow=&#39;0 0 12px rgba(245,158,11,.3)&#39;;this.style.transform=&#39;none&#39;">🏷️ v2.7.6</div>
     </div>
     <div class="header-right">
       <select class="month-select" id="monthSel" onchange="switchMonth()"><option value="2569-06">มิถุนายน 2569</option><option value="2569-07">กรกฎาคม 2569</option><option value="2569-08">สิงหาคม 2569</option></select>
@@ -1283,6 +1310,8 @@ body.light-mode .qn-foot{border-top-color:#e2e8f0;}
         <button class="search-clear" onclick="clearSearch()" title="ล้างการค้นหา">✕</button>
       </div>
 
+      <div id="personalMonthSummary" class="personal-summary" aria-live="polite"></div>
+
       <!-- TABLE -->
       <div class="table-card">
         <div class="table-top">
@@ -1297,11 +1326,13 @@ body.light-mode .qn-foot{border-top-color:#e2e8f0;}
               <th>รายรับ</th>
               <th style="color:#a5b4fc;">รายจ่าย นาย</th>
               <th style="color:#f9a8d4;">รายจ่าย เจน</th>
+              <th style="color:#a5b4fc;">นายออกเอง</th>
+              <th style="color:#f9a8d4;">เจนออกเอง</th>
               <th>โดนบิด</th>
               <th id="rem-col-header">คงเหลือ นาย</th>
               <th style="width:110px;">จัดการ</th>
             </tr></thead>
-            <tbody id="tbody"><tr><td colspan="8" style="text-align:center;padding:32px;color:#334155;">ยังไม่มีรายการ</td></tr></tbody>
+            <tbody id="tbody"><tr><td colspan="10" style="text-align:center;padding:32px;color:#334155;">ยังไม่มีรายการ</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -1309,6 +1340,7 @@ body.light-mode .qn-foot{border-top-color:#e2e8f0;}
 
     <!-- SUMMARY TAB -->
     <div class="section" id="tab-summary">
+      <div id="personalSummaryTab" class="personal-summary"></div>
       <div class="cards-row" id="summary-totals-row" style="margin-bottom:20px;grid-template-columns:repeat(5,1fr);">
     <div class="card"><div class="card-label">💚 รายรับรวมทั้งเดือน</div><div class="card-value income">฿0</div><div class="card-sub">โดนบิด: ฿0</div></div>
     <div class="card"><div class="card-label" style="color:#a5b4fc;">💸 รายจ่ายรวม นาย</div><div class="card-value expense">฿0</div></div>
@@ -1474,6 +1506,21 @@ body.light-mode .qn-foot{border-top-color:#e2e8f0;}
       <button class="btn btn-secondary" onclick="hideModal(&#39;itemModal&#39;)">ยกเลิก</button>
       <button class="btn btn-warning btn-sm" onclick="saveItemAsTemplate(event)">★ บันทึก template</button>
       <button class="btn btn-primary" onclick="saveItem()">💾 บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="personalExpenseModal">
+  <div class="modal modal-sm">
+    <h3 id="personalExpenseTitle">เพิ่มรายการออกเอง</h3>
+    <div class="fg"><label class="lbl">ชื่อรายการ</label><input class="inp" id="pName" maxlength="180" placeholder="เช่น ค่ากาแฟ"></div>
+    <div class="row2">
+      <div class="fg"><label class="lbl">ใครออกเอง</label><select class="sel" id="pPerson"><option value="nai">👤 นายออกเอง</option><option value="jen">👩 เจนออกเอง</option></select></div>
+      <div class="fg"><label class="lbl">จำนวน (฿)</label><input class="inp" type="number" id="pAmount" min="0.01" step="0.01" placeholder="0"></div>
+    </div>
+    <div class="modal-acts">
+      <button class="btn btn-secondary" onclick="hideModal('personalExpenseModal')">ยกเลิก</button>
+      <button class="btn btn-primary" onclick="savePersonalExpense()">💾 บันทึก</button>
     </div>
   </div>
 </div>
@@ -2007,7 +2054,7 @@ function switchTab(t){
   document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['dashboard','summary','budget','trends'][i]===t));
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById('tab-'+t).classList.add('active');
-  if(t==='summary')renderSummary();
+  if(t==='summary'){renderSummary();renderPersonalMonthSummary();}
   if(t==='budget')renderBudget();
   if(t==='trends')renderTrends();
 }
@@ -2125,16 +2172,17 @@ function renderTable(){
   const sorted=Object.keys(days).map(Number).sort((a,b)=>a-b);
   const tbody=document.getElementById('tbody');tbody.innerHTML='';
   const q=(document.getElementById('searchInp')?.value||'').toLowerCase().trim();
-  if(!sorted.length){tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:32px;color:#334155;">ยังไม่มีรายการ</td></tr>`;return;}
+  if(!sorted.length){tbody.innerHTML=`<tr><td colspan="10" style="text-align:center;padding:32px;color:#334155;">ยังไม่มีรายการ</td></tr>`;return;}
   let found=0;
   sorted.forEach(d=>{
     const day=days[d];
     if(!day)return;
     if(q){
       const matched=(day.items||[]).filter(i=>i.name.toLowerCase().includes(q)||i.cat.toLowerCase().includes(q));
-      if(!matched.length)return;
+      const matchedPersonal=personalExpenseList(day).filter(i=>i.name.toLowerCase().includes(q));
+      if(!matched.length&&!matchedPersonal.length)return;
       found++;
-      const fd={...day,items:matched};
+      const fd={...day,items:matched,personalExpenses:matchedPersonal};
       tbody.appendChild(buildDayRow(d,day));
       tbody.appendChild(buildItemsRow(d,fd));
       setTimeout(()=>expandDay(d),50);
@@ -2144,12 +2192,139 @@ function renderTable(){
       tbody.appendChild(buildItemsRow(d,day));
     }
   });
-  if(q&&found===0)tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:32px;color:#334155;">🔍 ไม่พบรายการ "${escapeHtml(q)}"</td></tr>`;
+  if(q&&found===0)tbody.innerHTML=`<tr><td colspan="10" style="text-align:center;padding:32px;color:#334155;">🔍 ไม่พบรายการ "${escapeHtml(q)}"</td></tr>`;
+}
+
+// ── v2.7.6: isolated personal expenses (never part of day.items) ──
+function personalExpenseList(day){
+  if(!day||!Array.isArray(day.personalExpenses))return[];
+  return day.personalExpenses.filter(i=>i&&Number.isSafeInteger(i.id)&&i.id>0&&typeof i.name==='string'&&(i.person==='nai'||i.person==='jen')&&typeof i.amount==='number'&&Number.isFinite(i.amount)&&i.amount>0);
+}
+function personalExpenseTotals(day){
+  const totals={nai:0,jen:0};
+  personalExpenseList(day).forEach(i=>{totals[i.person]+=i.amount;});
+  return totals;
+}
+function personalExpenseMonthTotals(){
+  const personal={nai:0,jen:0};
+  const days=(DB[curMonth]&&DB[curMonth].days)||{};
+  Object.values(days).forEach(day=>{
+    const t=personalExpenseTotals(day);personal.nai+=t.nai;personal.jen+=t.jen;
+  });
+  return personal;
+}
+function renderPersonalMonthSummary(){
+  if(!DB[curMonth]){
+    ['personalMonthSummary','personalSummaryTab'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});
+    return;
+  }
+  const p=personalExpenseMonthTotals();
+  const regularN=getStats('nai').exp,regularJ=getStats('jen').exp;
+  const total=p.nai+p.jen,all=total+regularN+regularJ;
+  const cards=[
+    ['nai','👤 นายออกเอง',p.nai],
+    ['jen','👩 เจนออกเอง',p.jen],
+    ['','💳 รวมออกเอง',total],
+    ['all','🧾 จ่ายจริงทั้งหมด',all]
+  ].map(([cls,label,value])=>'<div class="personal-summary-card '+cls+'"><div class="personal-summary-label">'+label+'</div><div class="personal-summary-amount">'+fmt(value)+'</div></div>').join('');
+  const markup='<div class="personal-summary-title">💳 ยอดออกเองประจำเดือน — '+escapeHtml(DB[curMonth]?.name||'')+'</div>'+
+    '<div class="personal-summary-grid">'+cards+'</div>'+
+    '<div class="personal-summary-caption">จ่ายจริงทั้งหมด = รายจ่ายปกติของทั้งสองคน + ยอดออกเอง · ยอดออกเองไม่หักคงเหลือ ไม่รวมรายจ่ายปกติ และไม่เข้าไปในกราฟเดิม</div>';
+  ['personalMonthSummary','personalSummaryTab'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=markup;});
+}
+let editPersonalExpenseCtx=null;
+function openAddPersonalExpense(dayNum){
+  if(!DB[curMonth]?.days?.[dayNum])return;
+  editPersonalExpenseCtx={month:curMonth,dayNum,itemId:null};
+  document.getElementById('personalExpenseTitle').textContent='➕ เพิ่มรายการออกเอง — วันที่ '+dayNum;
+  document.getElementById('pName').value='';
+  document.getElementById('pPerson').value='nai';
+  document.getElementById('pAmount').value='';
+  showModal('personalExpenseModal');
+  setTimeout(()=>document.getElementById('pName')?.focus(),80);
+}
+function openEditPersonalExpense(dayNum,id){
+  const day=DB[curMonth]?.days?.[dayNum];
+  const item=personalExpenseList(day).find(i=>i.id===id);
+  if(!item)return;
+  editPersonalExpenseCtx={month:curMonth,dayNum,itemId:id};
+  document.getElementById('personalExpenseTitle').textContent='✏️ แก้ไขรายการออกเอง';
+  document.getElementById('pName').value=item.name;
+  document.getElementById('pPerson').value=item.person;
+  document.getElementById('pAmount').value=item.amount;
+  showModal('personalExpenseModal');
+}
+// v2.7.6 final gate: field-scoped, month-root transaction for personal expenses.
+// Uses latest remote day inside the transaction and never writes a stale whole-day snapshot.
+let _personalWritePending=false;
+async function _commitPersonalExpense(ctx,action){
+  if(_personalWritePending){alert('กำลังบันทึกรายการออกเอง กรุณารอสักครู่');return false;}
+  if(!window._fbDb||!window._fbRef){alert('ต้องเชื่อมต่อ Firebase ก่อนบันทึกรายการออกเอง เพื่อป้องกันข้อมูลข้ามเครื่องทับกัน');return false;}
+  if(curMonth!==ctx.month||!DB[ctx.month]?.days?.[ctx.dayNum]){alert('เดือนหรือวันที่เปลี่ยนไป กรุณาเปิดรายการใหม่');return false;}
+  _personalWritePending=true;
+  let reason='';
+  try{
+    const result=await window._fbDb.ref('lucky_uefa/'+ctx.month).transaction(month=>{
+      if(!month||month._sync?.state==='deleted'){reason='เดือนถูกลบหรือยังไม่ซิงก์';return;}
+      const current=month.days?.[ctx.dayNum];
+      if(!current||current._sync?.state==='deleted'){reason='วันที่ถูกลบหรือยังไม่ซิงก์';return;}
+      const list=Array.isArray(current.personalExpenses)?current.personalExpenses.slice():[];
+      if(action.type==='add'){
+        const max=list.reduce((n,i)=>Math.max(n,Number.isSafeInteger(i?.id)?i.id:0),0);
+        if(max>=Number.MAX_SAFE_INTEGER){reason='รหัสรายการเต็ม';return;}
+        list.push({id:max+1,name:action.name,person:action.person,amount:action.amount});
+      }else{
+        const index=list.findIndex(i=>i?.id===action.id);
+        if(index<0){reason='รายการถูกลบหรือแก้ไขจากอีกเครื่องแล้ว';return;}
+        if(action.type==='delete'){
+          // Compare original fields to prevent deleting a concurrently edited item.
+          if(JSON.stringify(list[index])!==JSON.stringify(action.original)){reason='รายการถูกแก้จากอีกเครื่องแล้ว';return;}
+          list.splice(index,1);
+        }else{
+          if(JSON.stringify(list[index])!==JSON.stringify(action.original)){reason='รายการถูกแก้จากอีกเครื่องแล้ว';return;}
+          list[index]={...list[index],name:action.name,person:action.person,amount:action.amount};
+        }
+      }
+      month.days[ctx.dayNum]={...current,personalExpenses:list,svTs:firebase.database.ServerValue.TIMESTAMP};
+      return month;
+    },undefined,false);
+    if(!result.committed){alert('ไม่สามารถบันทึกได้: '+(reason||'ข้อมูลเปลี่ยนระหว่างบันทึก')+' กรุณารีเฟรชแล้วลองใหม่');return false;}
+    // Read the committed snapshot, not a stale local copy.
+    const committed=result.snapshot.val()?.days?.[ctx.dayNum];
+    if(committed&&DB[ctx.month]?.days?.[ctx.dayNum]){
+      DB[ctx.month].days[ctx.dayNum]={...DB[ctx.month].days[ctx.dayNum],personalExpenses:committed.personalExpenses||[]};
+      localStorage.setItem('bh_data2',JSON.stringify(DB));
+    }
+    updateSyncBadge('ok');renderAll();setTimeout(()=>{if(curMonth===ctx.month)expandDay(ctx.dayNum);},50);
+    return true;
+  }catch(e){console.error('Personal expense transaction failed',e);updateSyncBadge('err');alert('บันทึกไม่สำเร็จ ข้อมูลเดิมยังไม่ถูกแก้ไข กรุณาตรวจการเชื่อมต่อ');return false;}
+  finally{_personalWritePending=false;}
+}
+async function savePersonalExpense(){
+  const ctx=editPersonalExpenseCtx;
+  if(!ctx||!DB[ctx.month]?.days?.[ctx.dayNum]){alert('ไม่พบวันที่นี้ กรุณาเปิดรายการใหม่');return;}
+  const name=document.getElementById('pName').value.trim();
+  const person=document.getElementById('pPerson').value;
+  const amount=validateMoneyInput(document.getElementById('pAmount').value);
+  if(!name||name.length>180){alert('กรุณาระบุชื่อรายการไม่เกิน 180 ตัวอักษร');return;}
+  if(person!=='nai'&&person!=='jen'){alert('กรุณาเลือกนายหรือเจน');return;}
+  if(amount===null||amount<=0){alert('จำนวนต้องมากกว่า 0 บาท และห้ามติดลบ');return;}
+  const original=ctx.itemId===null?null:personalExpenseList(DB[ctx.month].days[ctx.dayNum]).find(i=>i.id===ctx.itemId);
+  if(ctx.itemId!==null&&!original){alert('ไม่พบรายการ กรุณาเปิดใหม่');return;}
+  const ok=await _commitPersonalExpense(ctx,ctx.itemId===null?{type:'add',name,person,amount}:{type:'edit',id:ctx.itemId,original,name,person,amount});
+  if(ok)hideModal('personalExpenseModal');
+}
+async function deletePersonalExpense(dayNum,id){
+  const day=DB[curMonth]?.days?.[dayNum];const original=personalExpenseList(day).find(i=>i.id===id);
+  if(!original)return;
+  if(!confirm('ลบรายการออกเอง "'+original.name+'" ใช่หรือไม่?'))return;
+  await _commitPersonalExpense({month:curMonth,dayNum},{type:'delete',id,original});
 }
 
 function buildDayRow(d,day){
   const expN=(day.items||[]).reduce((s,i)=>s+(i.nai||0),0);
   const expJ=(day.items||[]).reduce((s,i)=>s+(i.jen||0),0);
+  const personal=personalExpenseTotals(day);
   const incNai=day.incomeNai??day.income??0,incJen=day.incomeJen??day.income??0,ded=day.deducted||0;
   const inc=viewPerson==='jen'?incJen:incNai;
   const remN=incNai-expN-ded,remJ=incJen-expJ-ded;
@@ -2162,6 +2337,8 @@ function buildDayRow(d,day){
     <td style="color:#34d399;font-weight:600">${inc>0?fmt(inc):'<span style="color:#334155">-</span>'}</td>
     <td>${expN>0?('<span class="amt-btn nai-amt" id="amt-'+d+'-expTotal-nai" onclick="toggleSelAmt(event,\'expTotal\',\'nai\','+expN+','+d+')" title="คลิกเพื่อรวมยอดรายจ่ายนายหลายวัน">'+fmt(expN)+'</span>'):'<span style="color:#334155">฿0</span>'}</td>
     <td>${expJ>0?('<span class="amt-btn jen-amt" id="amt-'+d+'-expTotal-jen" onclick="toggleSelAmt(event,\'expTotal\',\'jen\','+expJ+','+d+')" title="คลิกเพื่อรวมยอดรายจ่ายเจนหลายวัน">'+fmt(expJ)+'</span>'):'<span style="color:#334155">฿0</span>'}</td>
+    <td style="color:#a5b4fc;font-weight:600">${personal.nai>0?fmt(personal.nai):'<span style="color:#334155">-</span>'}</td>
+    <td style="color:#f9a8d4;font-weight:600">${personal.jen>0?fmt(personal.jen):'<span style="color:#334155">-</span>'}</td>
     <td style="color:#fcd34d">${ded>0?fmt(ded):'<span style="color:#334155">-</span>'}</td>
     <td><span class="badge amt-btn ${rem>0?'badge-green':rem<0?'badge-red':'badge-zero'}" id="amt-${d}-rem-${viewPerson}" onclick="toggleSelAmt(event,'rem','${viewPerson}',${rem},${d})" title="คลิกเพื่อรวมยอดคงเหลือหลายวัน">${fmt(rem)}</span></td>
     <td onclick="event.stopPropagation()">
@@ -2175,6 +2352,17 @@ function buildDayRow(d,day){
 function buildItemsRow(d,day){
   const expN=(day.items||[]).reduce((s,i)=>s+(i.nai||0),0);
   const expJ=(day.items||[]).reduce((s,i)=>s+(i.jen||0),0);
+  const personEntries=personalExpenseList(day);
+  const personalTotals=personalExpenseTotals(day);
+  const personalHtml=personEntries.map(i=>
+    '<div class="personal-entry">'+
+    '<div class="personal-entry-title">'+escapeHtml(i.name)+'</div>'+
+    '<div class="personal-entry-money '+i.person+'">'+(i.person==='nai'?'นาย':'เจน')+' '+fmt(i.amount)+'</div>'+
+    '<div class="personal-row-actions">'+
+    '<button class="btn btn-secondary btn-sm" onclick="openEditPersonalExpense('+d+','+i.id+')">✏️</button>'+
+    '<button class="btn btn-danger btn-sm" onclick="deletePersonalExpense('+d+','+i.id+')">🗑</button>'+
+    '</div></div>'
+  ).join('');
   const tr=document.createElement('tr');tr.className='items-row';tr.id=`ir-${d}`;
   const items=(day.items||[]).map(item=>`
     <div class="item-row">
@@ -2187,13 +2375,19 @@ function buildItemsRow(d,day){
         <button class="btn btn-danger btn-sm" onclick="deleteItem(${d},${item.id})">🗑</button>
       </div>
     </div>`).join('');
-  tr.innerHTML=`<td colspan="8"><div class="items-wrap">
+  tr.innerHTML=`<td colspan="10"><div class="items-wrap">
     <div class="items-top">
       <div class="items-meta">${(day.items||[]).length} รายการ &nbsp;|&nbsp; <span style="color:#a5b4fc">นาย ${fmt(expN)}</span> &nbsp;·&nbsp; <span style="color:#f9a8d4">เจน ${fmt(expJ)}</span></div>
       <button class="btn btn-secondary btn-sm" onclick="openMultiAdd(${d});event.stopPropagation()" style="font-size:11px;">+++ หลายรายการ</button>
       <button class="btn btn-primary btn-sm" onclick="openAddItem(${d});event.stopPropagation()">+ เพิ่ม</button>
     </div>
     ${items||'<div class="empty-items">📭 ยังไม่มีรายการ</div>'}
+  <div style="border-top:1px dashed #1e3a5f;margin:12px 0;"></div>
+  <div class="personal-row-head">
+    <div style="font-size:12px;color:#c4b5fd;font-weight:700;">💳 ออกเอง · นาย ${fmt(personalTotals.nai)} / เจน ${fmt(personalTotals.jen)}</div>
+    <button class="btn btn-primary btn-sm" onclick="openAddPersonalExpense(${d});event.stopPropagation()">+ รายการออกเอง</button>
+  </div>
+  ${personalHtml||'<div class="empty-items">ยังไม่มีรายการออกเอง</div>'}
   <div style="border-top:1px dashed #1e3a5f;margin:10px 0;"></div>
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
     <div style="font-size:11px;color:#475569;font-weight:600;letter-spacing:.04em;">📝 จดคร่าวๆ</div>
@@ -2290,7 +2484,7 @@ function renderSummary(){
   tbody.appendChild(tot);
 }
 
-function renderAll(){renderCards();renderCharts();renderTable();if(curTab==='summary')renderSummary();if(curTab==='budget')renderBudget();}
+function renderAll(){renderCards();renderCharts();renderTable();renderPersonalMonthSummary();if(curTab==='summary')renderSummary();if(curTab==='budget')renderBudget();}
 
 function showModal(id){document.getElementById(id).classList.add('on');}
 function hideModal(id){document.getElementById(id).classList.remove('on');}
@@ -3407,7 +3601,7 @@ function deleteCurrentMonth(){
   if(!curMonth){
     // Fix 5: Empty state เมื่อลบเดือนสุดท้าย
     const tbody=document.getElementById('tbody');
-    if(tbody)tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:48px;color:#334155;font-size:15px;">📭 ไม่มีข้อมูล<br><span style="font-size:13px;margin-top:8px;display:block;">กดปุ่ม 📅 เดือนใหม่ เพื่อเริ่มต้น</span></td></tr>';
+    if(tbody)tbody.innerHTML='<tr><td colspan="10" style="text-align:center;padding:48px;color:#334155;font-size:15px;">📭 ไม่มีข้อมูล<br><span style="font-size:13px;margin-top:8px;display:block;">กดปุ่ม 📅 เดือนใหม่ เพื่อเริ่มต้น</span></td></tr>';
     const ml=document.getElementById('monthLabel');if(ml)ml.textContent='';
     Object.keys(charts).forEach(k=>{try{charts[k].destroy();}catch(e){}});charts={};
   } else {
@@ -4193,6 +4387,19 @@ function validateImportSchema(obj){
           if(item.cat!==undefined&&typeof item.cat!=='string')return err(`หมวดหมู่ของรายการ "${item.name}" ไม่ถูกต้อง`);
         }
       }
+      if(day.personalExpenses!==undefined){
+        if(!Array.isArray(day.personalExpenses))return err('personalExpenses ต้องเป็น array');
+        const personalIds=new Set();
+        for(let pi=0;pi<day.personalExpenses.length;pi++){
+          const item=day.personalExpenses[pi];
+          if(!item||typeof item!=='object'||Array.isArray(item))return err('ข้อมูลรายการออกเองไม่ถูกต้อง');
+          if(!Number.isSafeInteger(item.id)||item.id<=0||personalIds.has(item.id))return err('รหัสรายการออกเองไม่ถูกต้องหรือซ้ำกัน');
+          personalIds.add(item.id);
+          if(typeof item.name!=='string'||!item.name.trim()||item.name.length>180)return err('ชื่อรายการออกเองไม่ถูกต้อง');
+          if(item.person!=='nai'&&item.person!=='jen')return err('เจ้าของรายการออกเองไม่ถูกต้อง');
+          if(!isFiniteNum(item.amount)||item.amount<=0)return err('ยอดรายการออกเองต้องมากกว่า 0');
+        }
+      }
       if(day.scratchTopics!==undefined){
         if(!Array.isArray(day.scratchTopics))return err(`scratchTopics ของวันที่ "${dk}" เดือน "${mo}" ต้องเป็น array`);
         for(let ti=0;ti<day.scratchTopics.length;ti++){
@@ -4540,6 +4747,11 @@ function saveItemAsTemplate(e){
 // หมายเหตุ: เวอร์ชันก่อนหน้า (จนถึง 2.6.2) ไม่ได้บันทึก "เวลา" ที่แก้จริงไว้ตอนนั้น มีแค่วันที่
 // ตั้งแต่ 2.6.3 เป็นต้นไป ให้ใส่ time (HH:MM ตามเวลาไทย) จริงทุกครั้งที่บั๊มเวอร์ชัน
 const CHANGELOG=[
+  {v:'2.7.6',date:'2569-10-09',notes:[
+    '💳 เพิ่มรายการ นายออกเอง / เจนออกเอง พร้อมเพิ่ม แก้ไข ลบ และยอดรวมรายวัน–รายเดือน แยกจากรายการจ่ายปกติ',
+    '🧮 แสดงยอดใช้จ่ายจริงรวม แต่ไม่เปลี่ยนรายจ่ายปกติ ยอดคงเหลือ โดนบิด และกราฟเดิม',
+    '☁️ ข้อมูลเก็บภายใต้ personalExpenses ในแต่ละวัน ใช้กลไก Firebase Sync และรองรับ Export/Import'
+  ]},
   {v:'2.7.5',date:'2569-10-03',time:'02:28',notes:[
     '🔐 Security Hardening: เพิ่ม client-side UID allowlist ก่อน boot แอป โดย Firebase Realtime Database Rules ที่ล็อก UID ยังคงเป็น security boundary หลัก และซ่อน mainApp ตั้งแต่เริ่มโหลดจน Auth ผ่าน',
     '⏰ ทำ auto-logout 30 นาทีให้ตรวจต่อเนื่องข้าม reload/background ด้วย last activity แบบ namespaced โดยไม่ลบข้อมูลรายรับรายจ่ายหรือ backup ใน localStorage',
