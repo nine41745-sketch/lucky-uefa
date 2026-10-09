@@ -8,8 +8,8 @@
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>ลัคกี้&amp;ยูฟ่า Dashboard</title>
-<!-- App Version: 2.7.6 -->
-<script>console.log("App Version: 2.7.6");</script>
+<!-- App Version: 2.7.7 -->
+<script>console.log("App Version: 2.7.7");</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js" referrerpolicy="no-referrer"></script>
 <script>
 // ── SECURITY: HTML escaping ─────────────────────────────────────
@@ -338,9 +338,9 @@ function _appendScratchTopic(container,d,t,i){
         +'<div class="scratch-col-sum nai-sum" style="color:#a5b4fc;">฿'+Math.round(0).toLocaleString()+'</div>'
       +'</div>'
       +'<div>'
-        +'<div class="scratch-col-lbl" style="color:#f9a8d4;">👜 เจน</div>'
+        +'<div class="scratch-col-lbl" style="color:#c084fc;">👜 เจน</div>'
         +'<textarea class="scratch-ta scratch-ta-jen" placeholder="จดได้เลย ตัวเลขจะถูกรวมอัตโนมัติ" oninput="onScratchInput('+d+',this)">'+safeJen+'</textarea>'
-        +'<div class="scratch-col-sum jen-sum" style="color:#f9a8d4;">฿'+Math.round(0).toLocaleString()+'</div>'
+        +'<div class="scratch-col-sum jen-sum" style="color:#c084fc;">฿'+Math.round(0).toLocaleString()+'</div>'
       +'</div>'
     +'</div>';
   // Set initial sums
@@ -606,12 +606,12 @@ window.addEventListener('pageshow',()=>{
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --grad-primary:linear-gradient(135deg,#6366f1,#8b5cf6);
-  --grad-pink:linear-gradient(135deg,#ec4899,#f472b6);
+  --grad-pink:linear-gradient(135deg,#9333ea,#a855f7);
   --grad-green:linear-gradient(135deg,#10b981,#34d399);
   --grad-danger:linear-gradient(135deg,#ef4444,#f87171);
   --grad-amber:linear-gradient(135deg,#f59e0b,#fbbf24);
   --glow-primary:0 4px 20px rgba(99,102,241,.35);
-  --glow-pink:0 4px 20px rgba(236,72,153,.32);
+  --glow-pink:0 4px 20px rgba(147,51,234,.32);
   --glow-green:0 4px 20px rgba(16,185,129,.32);
   --glow-danger:0 4px 18px rgba(239,68,68,.32);
   --glow-amber:0 4px 18px rgba(245,158,11,.32);
@@ -646,7 +646,7 @@ body{font-family:'Sarabun',sans-serif;background:#0f172a;color:#e2e8f0;min-heigh
 .view-toggle{display:flex;background:#0f172a;border:1px solid #334155;border-radius:10px;overflow:hidden;}
 .vt-btn{padding:7px 14px;font-size:13px;font-weight:600;font-family:'Sarabun',sans-serif;border:none;cursor:pointer;color:#64748b;background:transparent;transition:all .2s;}
 .vt-btn.nai-active{background:var(--grad-primary);color:white;box-shadow:0 0 14px rgba(99,102,241,.4);}
-.vt-btn.jen-active{background:var(--grad-pink);color:white;box-shadow:0 0 14px rgba(236,72,153,.4);}
+.vt-btn.jen-active{background:var(--grad-pink);color:white;box-shadow:0 0 14px rgba(147,51,234,.4);}
 .vt-btn.cmp-active{background:var(--grad-amber);color:#0f172a;box-shadow:0 0 14px rgba(245,158,11,.4);}
 
 /* TABS */
@@ -680,16 +680,16 @@ body{font-family:'Sarabun',sans-serif;background:#0f172a;color:#e2e8f0;min-heigh
 .cmp-col{background:linear-gradient(160deg,#1e293b,#1a2338);border:1px solid #334155;border-radius:14px;padding:20px;box-shadow:0 4px 18px rgba(0,0,0,.2);}
 .cmp-col-title{font-size:15px;font-weight:700;margin-bottom:14px;}
 .nai-col .cmp-col-title{color:#818cf8;}
-.jen-col .cmp-col-title{color:#f9a8d4;}
+.jen-col .cmp-col-title{color:#c084fc;}
 .cmp-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .card{background:linear-gradient(160deg,#1e293b,#1a2338);border:1px solid #334155;border-radius:14px;padding:18px 20px;transition:border-color .25s,box-shadow .25s,transform .25s;}
 .card:hover{border-color:#6366f1;box-shadow:0 8px 26px rgba(99,102,241,.2);transform:translateY(-2px);}
-.card.jen-card{border-color:#4c1d45;}.card.jen-card:hover{border-color:#ec4899;box-shadow:0 8px 26px rgba(236,72,153,.22);}
+.card.jen-card{border-color:#4c1d95;}.card.jen-card:hover{border-color:#9333ea;box-shadow:0 8px 26px rgba(147,51,234,.22);}
 .card-label{font-size:12px;color:#64748b;margin-bottom:8px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;}
 .card-value{font-size:24px;font-weight:700;}
 .card-value.income{color:#34d399;}.card-value.expense{color:#f87171;}
 .card-value.pos{color:#34d399;}.card-value.neg{color:#f87171;}
-.card-value.days{color:#818cf8;}.card-value.jen-inc{color:#f9a8d4;}
+.card-value.days{color:#818cf8;}.card-value.jen-inc{color:#c084fc;}
 .card-sub{font-size:11px;color:#475569;margin-top:4px;}
 
 /* CHARTS */
@@ -713,7 +713,7 @@ tbody td{padding:11px 14px;font-size:14px;vertical-align:middle;}
 .badge-green{background:linear-gradient(135deg,#064e3b,#065f46);color:#34d399;box-shadow:0 0 10px rgba(16,185,129,.25);}
 .badge-red{background:linear-gradient(135deg,#450a0a,#5c1414);color:#fca5a5;box-shadow:0 0 10px rgba(248,113,113,.2);}
 .badge-zero{background:#1e293b;color:#475569;}
-.badge-pink{background:linear-gradient(135deg,#500724,#6b0e33);color:#f9a8d4;box-shadow:0 0 10px rgba(249,168,212,.22);}
+.badge-pink{background:linear-gradient(135deg,#3b0764,#581c87);color:#c084fc;box-shadow:0 0 10px rgba(192,132,252,.22);}
 
 /* ITEMS */
 .items-row{display:none;}.items-row.open{display:table-row;}
@@ -723,7 +723,7 @@ tbody td{padding:11px 14px;font-size:14px;vertical-align:middle;}
 .item-row{display:flex;align-items:center;padding:7px 10px;border-radius:8px;gap:8px;transition:background .1s;}
 .item-row:hover{background:#162032;}
 .item-name{flex:1;font-size:13px;color:#cbd5e1;}
-.item-jen{width:100px;text-align:right;font-size:12px;color:#f9a8d4;}
+.item-jen{width:100px;text-align:right;font-size:12px;color:#c084fc;}
 .item-nai{width:100px;text-align:right;font-size:13px;font-weight:600;color:#a5b4fc;}
 .item-cat{width:150px;}
 .item-acts{display:flex;gap:4px;justify-content:flex-end;width:72px;}
@@ -747,7 +747,7 @@ tbody td{padding:11px 14px;font-size:14px;vertical-align:middle;}
 .cmp-table th{padding:10px 14px;font-size:11px;font-weight:600;color:#475569;text-transform:uppercase;background:#0f172a;border-bottom:1px solid #334155;}
 .cmp-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid #1a2540;}
 .cmp-table tr:hover td{background:#1a2f4a;}
-.cmp-table td.jen-val{color:#f9a8d4;font-weight:600;}
+.cmp-table td.jen-val{color:#c084fc;font-weight:600;}
 .cmp-table td.nai-val{color:#a5b4fc;font-weight:600;}
 .diff-pos{color:#34d399;}.diff-neg{color:#f87171;}
 
@@ -881,7 +881,7 @@ body.light-mode .month-select{background:#f8fafc;border-color:#d1d5db;color:#0f1
 body.light-mode .view-toggle{background:#f1f5f9;border-color:#d1d5db;}
 body.light-mode .vt-btn{color:#6b7280;}
 body.light-mode .vt-btn.nai-active{background:#6366f1;color:#fff;}
-body.light-mode .vt-btn.jen-active{background:#ec4899;color:#fff;}
+body.light-mode .vt-btn.jen-active{background:#9333ea;color:#fff;}
 body.light-mode .vt-btn.cmp-active{background:#f59e0b;color:#fff;}
 body.light-mode .tabs{background:#f1f5f9;border-color:#d1d5db;}
 body.light-mode .tab-btn{color:#6b7280;}
@@ -893,8 +893,8 @@ body.light-mode .btn-firebase{background:#e2e8f0;color:#374151;border-color:#d1d
 body.light-mode .btn-firebase.fb-on{background:#d1fae5;color:#065f46;border-color:#6ee7b7;}
 body.light-mode .card{background:#ffffff;border-color:#e2e8f0;}
 body.light-mode .card:hover{border-color:#c7d2fe;}
-body.light-mode .card.jen-card{border-color:#fce7f3;}
-body.light-mode .card.jen-card:hover{border-color:#ec4899;}
+body.light-mode .card.jen-card{border-color:#f3e8ff;}
+body.light-mode .card.jen-card:hover{border-color:#9333ea;}
 body.light-mode .card-label{color:#6b7280;}
 body.light-mode .card-sub{color:#94a3b8;}
 body.light-mode .cmp-col{background:#ffffff;border-color:#e2e8f0;}
@@ -915,7 +915,7 @@ body.light-mode .items-meta{color:#6b7280;}
 body.light-mode .badge-green{background:#d1fae5;color:#065f46;}
 body.light-mode .badge-red{background:#fee2e2;color:#991b1b;}
 body.light-mode .badge-zero{background:#f1f5f9;color:#6b7280;}
-body.light-mode .badge-pink{background:#fce7f3;color:#9d174d;}
+body.light-mode .badge-pink{background:#f3e8ff;color:#6b21a8;}
 body.light-mode .summary-card{background:#ffffff;border-color:#e2e8f0;}
 body.light-mode .summary-title{color:#374151;}
 body.light-mode .cat-bar-name{color:#374151;}
@@ -983,9 +983,9 @@ body.light-mode .header-date-row .last-upd{color:#6b7280;}
 .amt-btn.nai-amt{color:#a5b4fc;background:#1a1f3a;border-color:#3730a3;}
 .amt-btn.nai-amt:hover{background:#2d2f5a;border-color:#818cf8;}
 .amt-btn.nai-amt.sel{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border-color:transparent;box-shadow:0 0 8px rgba(99,102,241,.5);}
-.amt-btn.jen-amt{color:#f9a8d4;background:#2a1020;border-color:#831843;}
-.amt-btn.jen-amt:hover{background:#3d1530;border-color:#f472b6;}
-.amt-btn.jen-amt.sel{background:linear-gradient(135deg,#ec4899,#be185d);color:#fff;border-color:transparent;box-shadow:0 0 8px rgba(236,72,153,.5);}
+.amt-btn.jen-amt{color:#c084fc;background:#2e1065;border-color:#6b21a8;}
+.amt-btn.jen-amt:hover{background:#4c1d95;border-color:#a855f7;}
+.amt-btn.jen-amt.sel{background:linear-gradient(135deg,#9333ea,#7e22ce);color:#fff;border-color:transparent;box-shadow:0 0 8px rgba(147,51,234,.5);}
 .badge.amt-btn.sel{background:linear-gradient(135deg,#6366f1,#8b5cf6)!important;color:#fff!important;box-shadow:0 0 8px rgba(99,102,241,.5);}
 body.light-mode #selBar{background:linear-gradient(90deg,#e0e7ff,#fce7f3);}
 body.light-mode .sel-info{color:#6b7280;}
@@ -996,8 +996,8 @@ body.light-mode .btn-sel-line{background:#d1fae5;color:#065f46;border-color:#a7f
 body.light-mode .btn-sel-clear{color:#6b7280;border-color:#d1d5db;}
 body.light-mode .amt-btn.nai-amt{color:#4f46e5;background:#e0e7ff;border-color:#c7d2fe;}
 body.light-mode .amt-btn.nai-amt.sel{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;}
-body.light-mode .amt-btn.jen-amt{color:#be185d;background:#fce7f3;border-color:#fbcfe8;}
-body.light-mode .amt-btn.jen-amt.sel{background:linear-gradient(135deg,#ec4899,#be185d);color:#fff;}
+body.light-mode .amt-btn.jen-amt{color:#7e22ce;background:#f3e8ff;border-color:#e9d5ff;}
+body.light-mode .amt-btn.jen-amt.sel{background:linear-gradient(135deg,#9333ea,#7e22ce);color:#fff;}
 
 /* ── UNDO TOAST ──────────────────────────────────────────── */
 #undoToast{display:none;position:fixed;bottom:70px;right:20px;background:#1e3a5f;border:1px solid #3b82f6;border-radius:10px;padding:10px 14px;z-index:400;box-shadow:0 4px 16px rgba(0,0,0,.4);display:none;align-items:center;gap:12px;font-size:13px;color:#93c5fd;min-width:240px;}
@@ -1095,25 +1095,38 @@ body.light-mode .qn-foot{border-top-color:#e2e8f0;}
 .personal-summary-label{font-size:12px;color:#94a3b8;margin-bottom:5px;}
 .personal-summary-amount{font-size:19px;font-weight:700;color:#e2e8f0;overflow-wrap:anywhere;}
 .personal-summary-card.nai .personal-summary-amount{color:#a5b4fc;}
-.personal-summary-card.jen .personal-summary-amount{color:#f9a8d4;}
+.personal-summary-card.jen .personal-summary-amount{color:#c084fc;}
 .personal-summary-card.all .personal-summary-amount{color:#34d399;}
 .personal-summary-caption{font-size:11px;color:#94a3b8;margin-top:8px;line-height:1.5;}
 .personal-row-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:12px 0 8px;}
 .personal-entry{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 10px;border:1px solid #334155;border-radius:8px;margin:6px 0;font-size:12px;}
 .personal-entry-title{flex:1;min-width:0;overflow-wrap:anywhere;color:#e2e8f0;}
 .personal-entry-money{font-weight:700;white-space:nowrap;}
-.personal-entry-money.nai{color:#a5b4fc;}.personal-entry-money.jen{color:#f9a8d4;}
+.personal-entry-money.nai{color:#a5b4fc;}.personal-entry-money.jen{color:#c084fc;}
 .personal-row-actions{display:flex;gap:5px;flex-shrink:0;}
 body.light-mode .personal-summary-title,body.light-mode .personal-summary-amount,body.light-mode .personal-entry-title{color:#0f172a;}
 body.light-mode .personal-summary-card{background:#fff;border-color:#d1d5db;}
 body.light-mode .personal-summary-label,body.light-mode .personal-summary-caption{color:#475569;}
 body.light-mode .personal-entry{border-color:#cbd5e1;}
 body.light-mode .personal-summary-card.nai .personal-summary-amount,body.light-mode .personal-entry-money.nai{color:#4338ca;}
-body.light-mode .personal-summary-card.jen .personal-summary-amount,body.light-mode .personal-entry-money.jen{color:#be185d;}
+body.light-mode .personal-summary-card.jen .personal-summary-amount,body.light-mode .personal-entry-money.jen{color:#7e22ce;}
 body.light-mode .personal-summary-card.all .personal-summary-amount{color:#047857;}
 @media(max-width:900px){.personal-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:450px){.personal-summary-amount{font-size:17px}.personal-entry{flex-wrap:wrap}.personal-row-actions{margin-left:auto}}
 #tab-dashboard .table-card table{min-width:990px;}
+
+/* v2.7.7: Jen-only high-contrast purple; all Nai/status/category colors remain v2.7.6. */
+#jen-cExp, #c-jen-exp, .jen-col .card-value.expense { color:#c084fc; }
+body.light-mode #jen-cExp, body.light-mode #c-jen-exp,
+body.light-mode .jen-col .card-value.expense,
+body.light-mode .jen-col .cmp-col-title,
+body.light-mode .cmp-table td.jen-val,
+body.light-mode .item-jen,
+body.light-mode .card-value.jen-inc,
+body.light-mode .personal-summary-card.jen .personal-summary-amount,
+body.light-mode .personal-entry-money.jen { color:#7e22ce; }
+/* Override Jen-specific inline label colors on light backgrounds only. */
+body.light-mode [style*="color:#c084fc"] { color:#7e22ce !important; }
 </style>
 </head>
 <body>
@@ -1211,7 +1224,7 @@ body.light-mode .personal-summary-card.all .personal-summary-amount{color:#04785
         &nbsp;·&nbsp;
         <span class="last-upd" id="lastUpdated">-</span>
       </div>
-      <div class="version-badge" onclick="openChangelog()" title="ดูประวัติเวอร์ชัน" style="display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:3px 11px;border-radius:999px;background:linear-gradient(135deg,#78350f,#92400e);border:1px solid #f59e0b;font-size:11px;font-weight:600;color:#fde68a;cursor:pointer;box-shadow:0 0 12px rgba(245,158,11,.3);transition:box-shadow .2s,transform .2s;" onmouseover="this.style.boxShadow=&#39;0 0 20px rgba(245,158,11,.55)&#39;;this.style.transform=&#39;translateY(-1px)&#39;" onmouseout="this.style.boxShadow=&#39;0 0 12px rgba(245,158,11,.3)&#39;;this.style.transform=&#39;none&#39;">🏷️ v2.7.6</div>
+      <div class="version-badge" onclick="openChangelog()" title="ดูประวัติเวอร์ชัน" style="display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:3px 11px;border-radius:999px;background:linear-gradient(135deg,#78350f,#92400e);border:1px solid #f59e0b;font-size:11px;font-weight:600;color:#fde68a;cursor:pointer;box-shadow:0 0 12px rgba(245,158,11,.3);transition:box-shadow .2s,transform .2s;" onmouseover="this.style.boxShadow=&#39;0 0 20px rgba(245,158,11,.55)&#39;;this.style.transform=&#39;translateY(-1px)&#39;" onmouseout="this.style.boxShadow=&#39;0 0 12px rgba(245,158,11,.3)&#39;;this.style.transform=&#39;none&#39;">🏷️ v2.7.7</div>
     </div>
     <div class="header-right">
       <select class="month-select" id="monthSel" onchange="switchMonth()"><option value="2569-06">มิถุนายน 2569</option><option value="2569-07">กรกฎาคม 2569</option><option value="2569-08">สิงหาคม 2569</option></select>
@@ -1265,8 +1278,8 @@ body.light-mode .personal-summary-card.all .personal-summary-amount{color:#04785
       <!-- JEN VIEW -->
       <div id="view-jen" style="display: none;">
         <div class="cards-row">
-          <div class="card jen-card"><div class="card-label">💗 รายรับรวม (เจน)</div><div class="card-value jen-inc" id="jen-cInc">฿0</div><div class="card-sub" id="jen-cIncSub">0 วันที่มีรายรับ</div></div>
-          <div class="card jen-card"><div class="card-label">🌸 รายจ่ายรวม (เจน)</div><div class="card-value expense" id="jen-cExp">฿0</div></div>
+          <div class="card jen-card"><div class="card-label">💜 รายรับรวม (เจน)</div><div class="card-value jen-inc" id="jen-cInc">฿0</div><div class="card-sub" id="jen-cIncSub">0 วันที่มีรายรับ</div></div>
+          <div class="card jen-card"><div class="card-label">🟣 รายจ่ายรวม (เจน)</div><div class="card-value expense" id="jen-cExp">฿0</div></div>
           <div class="card jen-card"><div class="card-label">⚖️ คงเหลือ (เจน)</div><div class="card-value pos" id="jen-cRem">฿0</div><div class="card-sub" id="jen-cDed">โดนบิด: ฿0</div></div>
           <div class="card jen-card"><div class="card-label">📅 วันที่บันทึก</div><div class="card-value days" id="jen-cDays">0</div><div class="card-sub">วัน</div></div>
         </div>
@@ -1325,9 +1338,9 @@ body.light-mode .personal-summary-card.all .personal-summary-amount{color:#04785
               <th>วันที่</th>
               <th>รายรับ</th>
               <th style="color:#a5b4fc;">รายจ่าย นาย</th>
-              <th style="color:#f9a8d4;">รายจ่าย เจน</th>
+              <th style="color:#c084fc;">รายจ่าย เจน</th>
               <th style="color:#a5b4fc;">นายออกเอง</th>
-              <th style="color:#f9a8d4;">เจนออกเอง</th>
+              <th style="color:#c084fc;">เจนออกเอง</th>
               <th>โดนบิด</th>
               <th id="rem-col-header">คงเหลือ นาย</th>
               <th style="width:110px;">จัดการ</th>
@@ -1344,9 +1357,9 @@ body.light-mode .personal-summary-card.all .personal-summary-amount{color:#04785
       <div class="cards-row" id="summary-totals-row" style="margin-bottom:20px;grid-template-columns:repeat(5,1fr);">
     <div class="card"><div class="card-label">💚 รายรับรวมทั้งเดือน</div><div class="card-value income">฿0</div><div class="card-sub">โดนบิด: ฿0</div></div>
     <div class="card"><div class="card-label" style="color:#a5b4fc;">💸 รายจ่ายรวม นาย</div><div class="card-value expense">฿0</div></div>
-    <div class="card"><div class="card-label" style="color:#f9a8d4;">💸 รายจ่ายรวม เจน</div><div class="card-value" style="color:#f9a8d4;">฿0</div></div>
+    <div class="card"><div class="card-label" style="color:#c084fc;">💸 รายจ่ายรวม เจน</div><div class="card-value" style="color:#c084fc;">฿0</div></div>
     <div class="card"><div class="card-label" style="color:#a5b4fc;">⚖️ คงเหลือ นาย</div><div class="card-value pos">฿0</div></div>
-    <div class="card"><div class="card-label" style="color:#f9a8d4;">⚖️ คงเหลือ เจน</div><div class="card-value" style="color:#f9a8d4">฿0</div></div>
+    <div class="card"><div class="card-label" style="color:#c084fc;">⚖️ คงเหลือ เจน</div><div class="card-value" style="color:#c084fc">฿0</div></div>
   </div>
       <div class="summary-grid">
         <div class="summary-card">
@@ -1354,7 +1367,7 @@ body.light-mode .personal-summary-card.all .personal-summary-amount{color:#04785
           <div id="nai-cat-bars"></div>
         </div>
         <div class="summary-card">
-          <div class="summary-title" style="color:#f9a8d4;">👩 เจน — ใช้จ่ายตามหมวดหมู่</div>
+          <div class="summary-title" style="color:#c084fc;">👩 เจน — ใช้จ่ายตามหมวดหมู่</div>
           <div id="jen-cat-bars"></div>
         </div>
       </div>
@@ -1366,10 +1379,10 @@ body.light-mode .personal-summary-card.all .personal-summary-amount{color:#04785
               <th>วันที่</th>
               <th>รายรับ (ร่วม)</th>
               <th style="color:#a5b4fc;">รายจ่าย นาย</th>
-              <th style="color:#f9a8d4;">รายจ่าย เจน</th>
+              <th style="color:#c084fc;">รายจ่าย เจน</th>
               <th>ผลต่าง</th>
               <th style="color:#a5b4fc;">คงเหลือ นาย</th>
-              <th style="color:#f9a8d4;">คงเหลือ เจน</th>
+              <th style="color:#c084fc;">คงเหลือ เจน</th>
             </tr></thead>
             <tbody id="cmp-tbody"><tr style="font-weight: 700; background: rgb(22, 32, 50);">
     <td>📊 รวมทั้งเดือน</td>
@@ -1388,7 +1401,7 @@ body.light-mode .personal-summary-card.all .personal-summary-amount{color:#04785
     <div class="section" id="tab-budget">
     <div class="summary-grid" style="margin-bottom:20px;">
       <div class="summary-card"><div class="summary-title" style="color:#a5b4fc;">👤 นาย — งบ vs จริง</div><div id="budget-nai-bars"><div style="color:#334155;font-size:13px;padding:8px 0;">ยังไม่มีการใช้จ่ายเดือนนี้</div></div></div>
-      <div class="summary-card"><div class="summary-title" style="color:#f9a8d4;">👩 เจน — งบ vs จริง</div><div id="budget-jen-bars"><div style="color:#334155;font-size:13px;padding:8px 0;">ยังไม่มีการใช้จ่ายเดือนนี้</div></div></div>
+      <div class="summary-card"><div class="summary-title" style="color:#c084fc;">👩 เจน — งบ vs จริง</div><div id="budget-jen-bars"><div style="color:#334155;font-size:13px;padding:8px 0;">ยังไม่มีการใช้จ่ายเดือนนี้</div></div></div>
     </div>
     <div class="table-card">
       <div class="table-top"><div class="table-title">⚙️ ตั้งงบประมาณต่อหมวด</div></div>
@@ -1397,7 +1410,7 @@ body.light-mode .personal-summary-card.all .personal-summary-amount{color:#04785
         <thead><tr>
           <th style="padding:10px 12px;text-align:left;font-size:11px;color:#475569;text-transform:uppercase;background:#0f172a;border-bottom:1px solid #334155;">หมวดหมู่</th>
           <th style="padding:10px 12px;text-align:center;font-size:11px;color:#a5b4fc;text-transform:uppercase;background:#0f172a;border-bottom:1px solid #334155;">งบ นาย (฿)</th>
-          <th style="padding:10px 12px;text-align:center;font-size:11px;color:#f9a8d4;text-transform:uppercase;background:#0f172a;border-bottom:1px solid #334155;">งบ เจน (฿)</th>
+          <th style="padding:10px 12px;text-align:center;font-size:11px;color:#c084fc;text-transform:uppercase;background:#0f172a;border-bottom:1px solid #334155;">งบ เจน (฿)</th>
         </tr></thead>
         <tbody><tr style="border-bottom:1px solid #1a2540;">
       <td style="padding:8px 12px;font-size:13px;color:#cbd5e1;">🍜 อาหาร/เครื่องดื่ม</td>
@@ -1478,7 +1491,7 @@ body.light-mode .personal-summary-card.all .personal-summary-amount{color:#04785
           <thead><tr>
             <th style="padding:8px 12px;text-align:left;font-size:11px;color:#475569;text-transform:uppercase;border-bottom:1px solid #334155;">เดือน</th>
             <th style="padding:8px 12px;text-align:right;font-size:11px;color:#a5b4fc;text-transform:uppercase;border-bottom:1px solid #334155;">รายจ่าย นาย</th>
-            <th style="padding:8px 12px;text-align:right;font-size:11px;color:#f9a8d4;text-transform:uppercase;border-bottom:1px solid #334155;">รายจ่าย เจน</th>
+            <th style="padding:8px 12px;text-align:right;font-size:11px;color:#c084fc;text-transform:uppercase;border-bottom:1px solid #334155;">รายจ่าย เจน</th>
             <th style="padding:8px 12px;text-align:right;font-size:11px;color:#34d399;text-transform:uppercase;border-bottom:1px solid #334155;">รวม</th>
           </tr></thead>
           <tbody id="trends-tbody"></tbody>
@@ -1530,7 +1543,7 @@ body.light-mode .personal-summary-card.all .personal-summary-amount{color:#04785
     <h3 id="incomeModalTitle">แก้ไขรายรับ</h3>
     <div class="row2">
       <div class="fg"><label class="lbl" style="color:#a5b4fc">👤 รายรับ นาย (฿)</label><input class="inp" type="number" id="incAmtNai" placeholder="0" min="0"></div>
-      <div class="fg"><label class="lbl" style="color:#f9a8d4">👩 รายรับ เจน (฿)</label><input class="inp" type="number" id="incAmtJen" placeholder="0" min="0"></div>
+      <div class="fg"><label class="lbl" style="color:#c084fc">👩 รายรับ เจน (฿)</label><input class="inp" type="number" id="incAmtJen" placeholder="0" min="0"></div>
     </div>
     <div class="fg"><label class="lbl">โดนบิด (฿)</label><input class="inp" type="number" id="dedAmt" placeholder="0" min="0"></div>
     <div class="modal-acts">
@@ -1546,7 +1559,7 @@ body.light-mode .personal-summary-card.all .personal-summary-amount{color:#04785
     <div class="fg"><label class="lbl">วันที่ (1–31)</label><input class="inp" type="number" id="ndDay" placeholder="เช่น 24" min="1" max="31"></div>
     <div class="row2">
       <div class="fg"><label class="lbl" style="color:#a5b4fc">👤 รายรับ นาย (฿)</label><input class="inp" type="number" id="ndIncNai" placeholder="0" min="0"></div>
-      <div class="fg"><label class="lbl" style="color:#f9a8d4">👩 รายรับ เจน (฿)</label><input class="inp" type="number" id="ndIncJen" placeholder="0" min="0"></div>
+      <div class="fg"><label class="lbl" style="color:#c084fc">👩 รายรับ เจน (฿)</label><input class="inp" type="number" id="ndIncJen" placeholder="0" min="0"></div>
     </div>
     <div class="fg"><label class="lbl">โดนบิด (฿)</label><input class="inp" type="number" id="ndDed" placeholder="0" min="0"></div>
     <div class="modal-acts">
@@ -2147,14 +2160,14 @@ function renderCharts(){
   if(viewPerson==='jen'||viewPerson==='cmp'){
     mkBar('jen-bar',labels,[
       {label:'รายรับ',data:incJenArr,backgroundColor:'rgba(52,211,153,.7)',borderColor:'#34d399',borderWidth:1,borderRadius:3},
-      {label:'รายจ่าย เจน',data:jenArr,backgroundColor:'rgba(249,168,212,.7)',borderColor:'#f9a8d4',borderWidth:1,borderRadius:3}
+      {label:'รายจ่าย เจน',data:jenArr,backgroundColor:'rgba(192,132,252,.7)',borderColor:'#c084fc',borderWidth:1,borderRadius:3}
     ]);
     const pl=CATS.filter(c=>catJ[c]>0);mkPie('jen-pie',pl,pl.map(c=>catJ[c]),pl.map(c=>_catColor(c,CAT_COLORS_JEN)));
   }
   if(viewPerson==='cmp'){
     mkBar('cmp-bar',labels,[
       {label:'รายจ่าย นาย',data:naiArr,backgroundColor:'rgba(165,180,252,.7)',borderColor:'#a5b4fc',borderWidth:1,borderRadius:3},
-      {label:'รายจ่าย เจน',data:jenArr,backgroundColor:'rgba(249,168,212,.7)',borderColor:'#f9a8d4',borderWidth:1,borderRadius:3}
+      {label:'รายจ่าย เจน',data:jenArr,backgroundColor:'rgba(192,132,252,.7)',borderColor:'#c084fc',borderWidth:1,borderRadius:3}
     ]);
     const pl=CATS.filter(c=>catN[c]>0||catJ[c]>0);
     // FIX v2.7.2: เดิมส่ง CAT_COLORS ทั้งก้อนเข้า mkPie() ตรงๆ โดยไม่ map ตาม pl (Chart.js จับคู่
@@ -2337,8 +2350,8 @@ function buildDayRow(d,day){
     <td style="color:#34d399;font-weight:600">${inc>0?fmt(inc):'<span style="color:#334155">-</span>'}</td>
     <td>${expN>0?('<span class="amt-btn nai-amt" id="amt-'+d+'-expTotal-nai" onclick="toggleSelAmt(event,\'expTotal\',\'nai\','+expN+','+d+')" title="คลิกเพื่อรวมยอดรายจ่ายนายหลายวัน">'+fmt(expN)+'</span>'):'<span style="color:#334155">฿0</span>'}</td>
     <td>${expJ>0?('<span class="amt-btn jen-amt" id="amt-'+d+'-expTotal-jen" onclick="toggleSelAmt(event,\'expTotal\',\'jen\','+expJ+','+d+')" title="คลิกเพื่อรวมยอดรายจ่ายเจนหลายวัน">'+fmt(expJ)+'</span>'):'<span style="color:#334155">฿0</span>'}</td>
-    <td style="color:#a5b4fc;font-weight:600">${personal.nai>0?fmt(personal.nai):'<span style="color:#334155">-</span>'}</td>
-    <td style="color:#f9a8d4;font-weight:600">${personal.jen>0?fmt(personal.jen):'<span style="color:#334155">-</span>'}</td>
+    <td>${personal.nai>0?('<span class="amt-btn nai-amt" id="amt-'+d+'-personalTotal-nai" onclick="toggleSelAmt(event,\'personalTotal\',\'nai\','+personal.nai+','+d+')" title="คลิกเพื่อเลือกรวมยอดออกเองหลายวัน">'+fmt(personal.nai)+'</span>'):'<span style="color:#334155">-</span>'}</td>
+    <td>${personal.jen>0?('<span class="amt-btn jen-amt" id="amt-'+d+'-personalTotal-jen" onclick="toggleSelAmt(event,\'personalTotal\',\'jen\','+personal.jen+','+d+')" title="คลิกเพื่อเลือกรวมยอดออกเองหลายวัน">'+fmt(personal.jen)+'</span>'):'<span style="color:#334155">-</span>'}</td>
     <td style="color:#fcd34d">${ded>0?fmt(ded):'<span style="color:#334155">-</span>'}</td>
     <td><span class="badge amt-btn ${rem>0?'badge-green':rem<0?'badge-red':'badge-zero'}" id="amt-${d}-rem-${viewPerson}" onclick="toggleSelAmt(event,'rem','${viewPerson}',${rem},${d})" title="คลิกเพื่อรวมยอดคงเหลือหลายวัน">${fmt(rem)}</span></td>
     <td onclick="event.stopPropagation()">
@@ -2368,7 +2381,7 @@ function buildItemsRow(d,day){
     <div class="item-row">
       <div class="item-name">${escapeHtml(item.name)}</div>
       <div class="item-nai">${item.nai>0?('<span class="amt-btn nai-amt" onclick="toggleSelAmt(event,'+item.id+',\'nai\','+item.nai+','+d+')" id="amt-'+d+'-'+item.id+'-nai">'+fmt(item.nai)+'</span>'):'<span style="color:#334155">-</span>'} <span style="font-size:10px;color:#a5b4fc;font-weight:700;">นาย</span></div>
-      <div class="item-jen">${item.jen>0?('<span class="amt-btn jen-amt" onclick="toggleSelAmt(event,'+item.id+',\'jen\','+item.jen+','+d+')" id="amt-'+d+'-'+item.id+'-jen">'+fmt(item.jen)+'</span>'):'<span style="color:#334155">-</span>'} <span style="font-size:10px;color:#f9a8d4;font-weight:700;">เจน</span></div>
+      <div class="item-jen">${item.jen>0?('<span class="amt-btn jen-amt" onclick="toggleSelAmt(event,'+item.id+',\'jen\','+item.jen+','+d+')" id="amt-'+d+'-'+item.id+'-jen">'+fmt(item.jen)+'</span>'):'<span style="color:#334155">-</span>'} <span style="font-size:10px;color:#c084fc;font-weight:700;">เจน</span></div>
       <div class="item-cat"><span class="cat ${CAT_CLS[item.cat]||'c5'}">${escapeHtml(CAT_EMOJI[item.cat]||'')} ${escapeHtml(item.cat)}</span></div>
       <div class="item-acts">
         <button class="btn btn-secondary btn-sm" onclick="openEditItem(${d},${item.id})">✏️</button>
@@ -2377,7 +2390,7 @@ function buildItemsRow(d,day){
     </div>`).join('');
   tr.innerHTML=`<td colspan="10"><div class="items-wrap">
     <div class="items-top">
-      <div class="items-meta">${(day.items||[]).length} รายการ &nbsp;|&nbsp; <span style="color:#a5b4fc">นาย ${fmt(expN)}</span> &nbsp;·&nbsp; <span style="color:#f9a8d4">เจน ${fmt(expJ)}</span></div>
+      <div class="items-meta">${(day.items||[]).length} รายการ &nbsp;|&nbsp; <span style="color:#a5b4fc">นาย ${fmt(expN)}</span> &nbsp;·&nbsp; <span style="color:#c084fc">เจน ${fmt(expJ)}</span></div>
       <button class="btn btn-secondary btn-sm" onclick="openMultiAdd(${d});event.stopPropagation()" style="font-size:11px;">+++ หลายรายการ</button>
       <button class="btn btn-primary btn-sm" onclick="openAddItem(${d});event.stopPropagation()">+ เพิ่ม</button>
     </div>
@@ -2425,9 +2438,9 @@ function renderSummary(){
   if(sr){sr.innerHTML=`
     <div class="card"><div class="card-label">💚 รายรับรวมทั้งเดือน</div><div class="card-value income">${fmt(totalIncN)}</div><div class="card-sub">โดนบิด: ${fmt(totalDed)}</div></div>
     <div class="card"><div class="card-label" style="color:#a5b4fc;">💸 รายจ่ายรวม นาย</div><div class="card-value expense">${fmt(totalN)}</div></div>
-    <div class="card"><div class="card-label" style="color:#f9a8d4;">💸 รายจ่ายรวม เจน</div><div class="card-value" style="color:#f9a8d4;">${fmt(totalJ)}</div></div>
+    <div class="card"><div class="card-label" style="color:#c084fc;">💸 รายจ่ายรวม เจน</div><div class="card-value" style="color:#c084fc;">${fmt(totalJ)}</div></div>
     <div class="card"><div class="card-label" style="color:#a5b4fc;">⚖️ คงเหลือ นาย</div><div class="card-value ${remN>=0?'pos':'neg'}">${fmt(remN)}</div></div>
-    <div class="card"><div class="card-label" style="color:#f9a8d4;">⚖️ คงเหลือ เจน</div><div class="card-value" style="color:${remJ>=0?'#f9a8d4':'#f87171'}">${fmt(remJ)}</div></div>
+    <div class="card"><div class="card-label" style="color:#c084fc;">⚖️ คงเหลือ เจน</div><div class="card-value" style="color:${remJ>=0?'#c084fc':'#f87171'}">${fmt(remJ)}</div></div>
   `;}
   function buildBars(elId,catTot,total,colors){
     const el=document.getElementById(elId);el.innerHTML='';
@@ -3821,7 +3834,7 @@ function renderBudget(){
   el.innerHTML=`
     <div class="summary-grid" style="margin-bottom:20px;">
       <div class="summary-card"><div class="summary-title" style="color:#a5b4fc;">👤 นาย — งบ vs จริง</div><div id="budget-nai-bars"></div></div>
-      <div class="summary-card"><div class="summary-title" style="color:#f9a8d4;">👩 เจน — งบ vs จริง</div><div id="budget-jen-bars"></div></div>
+      <div class="summary-card"><div class="summary-title" style="color:#c084fc;">👩 เจน — งบ vs จริง</div><div id="budget-jen-bars"></div></div>
     </div>
     <div class="table-card">
       <div class="table-top"><div class="table-title">⚙️ ตั้งงบประมาณต่อหมวด</div></div>
@@ -3830,7 +3843,7 @@ function renderBudget(){
         <thead><tr>
           <th style="padding:10px 12px;text-align:left;font-size:11px;color:#475569;text-transform:uppercase;background:#0f172a;border-bottom:1px solid #334155;">หมวดหมู่</th>
           <th style="padding:10px 12px;text-align:center;font-size:11px;color:#a5b4fc;text-transform:uppercase;background:#0f172a;border-bottom:1px solid #334155;">งบ นาย (฿)</th>
-          <th style="padding:10px 12px;text-align:center;font-size:11px;color:#f9a8d4;text-transform:uppercase;background:#0f172a;border-bottom:1px solid #334155;">งบ เจน (฿)</th>
+          <th style="padding:10px 12px;text-align:center;font-size:11px;color:#c084fc;text-transform:uppercase;background:#0f172a;border-bottom:1px solid #334155;">งบ เจน (฿)</th>
         </tr></thead>
         <tbody>${rows}</tbody>
       </table></div>
@@ -4505,7 +4518,7 @@ function renderTrends(){
     try{
       charts['trends-bar']=new Chart(ctx,{type:'bar',data:{labels,datasets:[
         {label:'รายจ่าย นาย',data:naiData,backgroundColor:'rgba(165,180,252,.7)',borderColor:'#a5b4fc',borderWidth:1,borderRadius:4},
-        {label:'รายจ่าย เจน',data:jenData,backgroundColor:'rgba(249,168,212,.7)',borderColor:'#f9a8d4',borderWidth:1,borderRadius:4}
+        {label:'รายจ่าย เจน',data:jenData,backgroundColor:'rgba(192,132,252,.7)',borderColor:'#c084fc',borderWidth:1,borderRadius:4}
       ]},options:{responsive:true,maintainAspectRatio:false,
         plugins:{legend:{labels:{color:th.legendColor,font:{size:11,family:'Sarabun'}}}},
         scales:{x:{ticks:{color:th.tickColor,font:{size:10,family:'Sarabun'}},grid:{color:th.gridColor}},
@@ -4573,6 +4586,10 @@ function selCopyLine(){
     const dayN=parseInt(parts[0]),idPart=parts[1],typ=parts[2];
     if(idPart==='rem'){
       text+='⚖️ คงเหลือวันที่ '+dayN+': ฿'+Math.round(x.val).toLocaleString()+'\n';
+      return;
+    }
+    if(idPart==='personalTotal'){
+      text+=(typ==='nai'?'👤 นายออกเอง':'👜 เจนออกเอง')+' วันที่ '+dayN+': ฿'+Math.round(x.val).toLocaleString()+'\n';
       return;
     }
     if(idPart==='expTotal'){
@@ -4747,6 +4764,10 @@ function saveItemAsTemplate(e){
 // หมายเหตุ: เวอร์ชันก่อนหน้า (จนถึง 2.6.2) ไม่ได้บันทึก "เวลา" ที่แก้จริงไว้ตอนนั้น มีแค่วันที่
 // ตั้งแต่ 2.6.3 เป็นต้นไป ให้ใส่ time (HH:MM ตามเวลาไทย) จริงทุกครั้งที่บั๊มเวอร์ชัน
 const CHANGELOG=[
+  {v:'2.7.7',date:'2569-10-10',notes:[
+    '🎨 เปลี่ยนสีประจำตัวเจนจากชมพูเป็นม่วงสด เพื่อแยกจากสีนายชัดขึ้น โดยคืนสีและการทำงานอื่นทุกจุดเป็น v2.7.6',
+    '🧮 คลิกเลือกยอดนายออกเองและเจนออกเองในแต่ละวันเพื่อรวมข้ามวันหรือรวมกับยอดที่เลือกอื่นได้ ผ่านแถบรวมยอด/หารสอง/คัดลอกเดิม โดยไม่เปลี่ยนข้อมูลหรือสูตรคงเหลือ'
+  ]},
   {v:'2.7.6',date:'2569-10-09',notes:[
     '💳 เพิ่มรายการ นายออกเอง / เจนออกเอง พร้อมเพิ่ม แก้ไข ลบ และยอดรวมรายวัน–รายเดือน แยกจากรายการจ่ายปกติ',
     '🧮 แสดงยอดใช้จ่ายจริงรวม แต่ไม่เปลี่ยนรายจ่ายปกติ ยอดคงเหลือ โดนบิด และกราฟเดิม',
